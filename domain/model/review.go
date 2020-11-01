@@ -13,7 +13,7 @@ type Review struct {
 }
 
 // NewReview のコンストラクタ
-func NewReview(stars, sweetID int, comment string) (*Review, error) {
+func NewReview(stars, sweetID int) (*Review, error) {
 	if stars == "" {
 		return nil, errors.New("スターを入力してください")
 	}
@@ -25,7 +25,6 @@ func NewReview(stars, sweetID int, comment string) (*Review, error) {
 	review := &Review{
 		Stars:   title,
 		SweetID: sweetID,
-		Comment: comment,
 	}
 
 	return review, nil
