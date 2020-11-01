@@ -18,7 +18,11 @@ func main() {
 	taskUsecase := usecase.NewTaskUsecase(taskRepository)
 	taskHandler := handler.NewTaskHandler(taskUsecase)
 
+	reviewRepository := infra.NewReviewRepository(config.NewDB())
+	reviewUsecase := usecase.NewReviewUsecase(reviewRepository)
+	reviewHandler := handler.NewReviewHandler(reviewUsecase)
+
 	e := echo.New()
-	handler.InitRouting(e, taskHandler)
+	handler.InitRouting(e, taskHandler, reviewHandler)
 	e.Logger.Fatal(e.Start(":8080"))
 }
