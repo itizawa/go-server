@@ -6,8 +6,6 @@ import (
 
 // ReviewRepository review repositoryのinterface
 type ReviewRepository interface {
-	Create(task *model.Review) (*model.Task, error)
+	Create(review *model.Review) (*model.Review, error)
 	FindByID(id int) (*model.Review, error)
-	Update(task *model.Task) (*model.Review, error)
-	Delete(task *model.Review) error
 }
