@@ -16,7 +16,7 @@ type ReviewHandler interface {
 }
 
 // ReviewHandler review handlerの構造体
-type ReviewHandler struct {
+type reviewHandler struct {
 	reviewUsecase usecase.ReviewUsecase
 }
 
@@ -26,33 +26,33 @@ func NewReviewHandler(reviewUsecase usecase.ReviewUsecase) ReviewHandler {
 }
 
 type requestReview struct {
-	Stars   int `json:"stars"`
-	SweetID int `json:"sweetID"`
+	Stars   string `json:"stars"`
+	SweetID string `json:"sweetID"`
 }
 
 type responseReview struct {
-	ID      int `json:"id"`
-	Stars   int `json:"stars"`
-	SweetID int `json:"sweetID"`
+	ID      int    `json:"id"`
+	Stars   string `json:"stars"`
+	SweetID string `json:"sweetID"`
 }
 
 // Post reviewを保存するときのハンドラー
 func (rh *reviewHandler) Post() echo.HandlerFunc {
 	return func(c echo.Context) error {
-		var req request
+		var req requestReview
 		if err := c.Bind(&req); err != nil {
 			return c.JSON(http.StatusBadRequest, err.Error())
 		}
 
-		createdReview, err := rh.reviewUsecase.Create(req.stars, req.sweetID)
+		createdReview, err := rh.reviewUsecase.Create(req.Stars, req.SweetID)
 		if err != nil {
 			return c.JSON(http.StatusBadRequest, err.Error())
 		}
 
 		res := responseReview{
 			ID:      createdReview.ID,
-			Stars:   createdReview.stars,
-			SweetID: createdReview.sweetID,
+			Stars:   createdReview.Stars,
+			SweetID: createdReview.SweetID,
 		}
 
 		return c.JSON(http.StatusCreated, res)

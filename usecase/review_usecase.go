@@ -7,7 +7,7 @@ import (
 
 // ReviewUsecase review usecaseのinterface
 type ReviewUsecase interface {
-	Create(stars, sweetID int) (*model.Review, error)
+	Create(stars, sweetID string) (*model.Review, error)
 	FindByID(id int) (*model.Review, error)
 }
 
@@ -21,7 +21,7 @@ func NewReviewUsecase(reviewRepo repository.ReviewRepository) ReviewUsecase {
 }
 
 // Create reviewを保存するときのユースケース
-func (ru *reviewUsecase) Create(stars, sweetID int) (*model.Review, error) {
+func (ru *reviewUsecase) Create(stars, sweetID string) (*model.Review, error) {
 	review, err := model.NewReview(stars, sweetID)
 	if err != nil {
 		return nil, err

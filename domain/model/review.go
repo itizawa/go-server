@@ -7,13 +7,12 @@ import (
 // Review の構造体
 type Review struct {
 	ID      int
-	Stars   int
-	SweetID int
-	Comment string
+	Stars   string
+	SweetID string
 }
 
 // NewReview のコンストラクタ
-func NewReview(stars, sweetID int) (*Review, error) {
+func NewReview(stars, sweetID string) (*Review, error) {
 	if stars == "" {
 		return nil, errors.New("スターを入力してください")
 	}
@@ -23,7 +22,7 @@ func NewReview(stars, sweetID int) (*Review, error) {
 	}
 
 	review := &Review{
-		Stars:   title,
+		Stars:   stars,
 		SweetID: sweetID,
 	}
 
